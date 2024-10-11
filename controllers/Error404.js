@@ -10,7 +10,7 @@ class Error404Controller extends BaseController{
 
     async handle(req,res){
         try{
-            return res.status(404).send('404 page not found!');
+            return res.status(404).render('404.html');
             // return res.status(200).render('user/404.html',{'jdia' : 'asdpoi'});
         }catch(e){
             return super.toError(e, req ,res);
