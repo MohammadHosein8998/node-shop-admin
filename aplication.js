@@ -43,6 +43,7 @@ class Aplication{
                 express : this.#app,
                 noCache : false
             });
+            this.#app.set('view engine' , 'html');
             this.#templateEnginge.addGlobal('t',Translate.t);
             this.#templateEnginge.addGlobal("APP_URL", getEnv('APP_URL'));
             this.#templateEnginge.addGlobal("TEMPLATE_NAME",  getEnv('TEMPLATE') + "/");

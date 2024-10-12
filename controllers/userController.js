@@ -16,7 +16,13 @@ class userController extends BaseController{
     }
 
     
-
+    async getIndex(req ,res){
+        try{
+            return res.send("ok");
+        }catch(e){
+            return super.toError(e , req ,res);
+        }
+    }
 }
 
 export default userController;

@@ -33,10 +33,10 @@ export default class BaseController{
             log(debug)
             return async (req, res , next) => {
                 if(debug){
-                    return res.status(400).send(error.toString());
+                    return res.status(500).render('500', {'error' : error.toString()});
                 }
                 else{
-                    return res.status(500).send("Internal server Error");
+                    return res.status(500).render('500' , {'error' : "Internal server Error"});
                 }
             }
         }catch(e){
@@ -49,18 +49,18 @@ export default class BaseController{
         const debug = getEnv('DEBUG' , 'bool');
         try{
             if(debug){
-                return res.status(500).send(err.toString());
+                return res.status(500).render('500',{"error": err.toString()});
             }
             else{
-                return res.status(500).send("Internal server Error");
+                return res.status(500).render('500',{"error": 'Internal server Error'});
             }
         }catch(e){
             
             if(debug){
-                return res.status(500).send(e.toString());
+                return res.status(500).render('500',{"error": err.toString()});
             }
             else{
-                return res.status(500).send("Internal server Error");
+                return res.status(500).render('500',{"error": 'Internal server Error'});
             }
         }
     }
