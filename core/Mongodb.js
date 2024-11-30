@@ -38,7 +38,6 @@ class MongoDB
     async connect(URI){
         try{
             this.#db =  await mongoose.createConnection(URI).asPromise();
-            log('heeloo ')
             const r = this.#db.readyState;
             return (r == 1) ? true : false;
         }

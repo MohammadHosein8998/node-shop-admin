@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html dir="rtl" class="loading semi-dark-layout" lang="fa" data-layout="semi-dark-layout" data-textdirection="rtl">
+<!-- BEGIN: Head-->
+
+<head>
+    
+    <base href="{{APP_URL}}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <title>{{t('project_title')}}</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset_url('images/ico/favicon.ico')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/bootstrap-extended.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/colors.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/components.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/pages/page-misc.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('css/style-rtl.css')}}">
+    
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/themes/dark-layout.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/themes/semi-dark-layout.min.css')}}">
+    
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/core/menu/menu-types/vertical-menu.css')}}">
+    <link rel="stylesheet" type="text/css" href=" {{ asset_url('css-rtl/plugins/forms/form-validation.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/pages/authentication.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/custom-rtl.css')}}">
+    {% block css %}{% endblock %}
+
+
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static" data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+    <!-- BEGIN: Header-->
+    {% include 'layout/nav.html'%}
+    
+    <!-- END: Header-->
+
+
+    <!-- BEGIN: Main Menu-->
+    {% include 'layout/sidebar.html' %}
+    <!-- END: Main Menu-->
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        {% block navbar %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+            {% block body %}
+            {% endblock %}
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+    <!-- BEGIN: Footer-->
+    {% include './footer.html'%}
+    <!-- END: Footer-->
+
+    <!--  wrong <script src="{{ asset_url('data/locales/en.json')}}"></script> -->
+
+    <script src="{{ asset_url('vendors/js/vendors.min.js')}}"></script>
+    <script src="{{ asset_url('js/core/app-menu.js')}}"></script>
+    <script src="{{ asset_url('js/core/app.js')}}"></script>
+
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        })
+    </script>
+    {% block js %}{% endblock %}
+</body>
+<!-- END: Body-->
+
+</html>

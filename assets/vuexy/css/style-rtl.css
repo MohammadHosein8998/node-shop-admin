@@ -32,3 +32,9 @@ body{
     font-family: 'Samim';
 }
 
+
+label.error{
+    color: rgb(206, 11, 228);
+    font-size: 14px;
+    padding-top: 10px;
+}

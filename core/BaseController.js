@@ -1,5 +1,6 @@
 import autoBind from "auto-bind";
-import { getEnv, log } from "./utils.js";
+import {encode} from 'html-entities';
+import { getEnv, log, toNumber } from "./utils.js";
 
 export default class BaseController{
 
@@ -43,25 +44,41 @@ export default class BaseController{
             log(`ERROR on : BaseController : errorHandling ${e.toString()}`);
             throw e;
         }
-    }
+}
 
     toError(err , req ,res){
         const debug = getEnv('DEBUG' , 'bool');
         try{
             if(debug){
-                return res.status(500).render('500',{"error": err.toString()});
+                // res.status(500).send("hello fucker");
+                res.status(500).render('500',{"error": err.toString()});
             }
             else{
                 return res.status(500).render('500',{"error": 'Internal server Error'});
             }
         }catch(e){
-            
             if(debug){
-                return res.status(500).render('500',{"error": err.toString()});
+                return res.status(500).render('500',{"error": e.toString()});
             }
             else{
                 return res.status(500).render('500',{"error": 'Internal server Error'});
             }
+        }
+    }
+
+    safeString(str){
+        try{
+            return encode(str , {mode: 'specialChars'});
+        }catch(e){
+            return "";
+        }
+    }
+
+    toNumber(num){
+        try{
+            return toNumber(num);   
+        }catch(e){
+            return 0;
         }
     }
 }

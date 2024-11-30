@@ -5,17 +5,15 @@ import { log } from "../core/utils.js";
 import rateLimiterRedis from "../middleware/rateLimitter.js";
 
 
-const UserController = new userController();
+const Controller = new userController();
 const route = Router();
 try{
-    //index
-    route.get("/" ,  UserController.getIndex);
     //login
-    route.get("/login" , UserController.getLogin);
-    route.post("/login" , UserController.postLogin);  
+    route.get("/login", new authmiddleware().isAuth , Controller.getLogin);
+    route.post("/login", new authmiddleware().isAuth , Controller.postLogin);  
 
 }catch(e){
-    route.use(UserController.errorHandling(e.toString()))
+    route.use(Controller.errorHandling(e.toString()))
 }
 
 export default route;

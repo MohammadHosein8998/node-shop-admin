@@ -13,7 +13,7 @@ class Error404Controller extends BaseController{
             return res.status(404).render('404.html');
             // return res.status(200).render('user/404.html',{'jdia' : 'asdpoi'});
         }catch(e){
-            return super.toError(e, req ,res);
+            return super.toError(e , req ,res);
         }
     }
 }

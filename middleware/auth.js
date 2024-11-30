@@ -10,11 +10,11 @@ export default class authMidlleware extends BaseMiddleware {
       super();
    }
    
-   async checkAuth(req,res,next){
+   async isAuth(req,res,next){
       try{
          log('isAuth is call');
-         if(req?.session?.user_id){
-            return res.redirect(`${getEnv('APP_URL')}profile`);
+         if(req?.session?.admin_id){
+            return res.redirect(`${getEnv('APP_URL')}`);
         }else{
             next()
         }
@@ -23,13 +23,13 @@ export default class authMidlleware extends BaseMiddleware {
          
       }
    }
-   async isAuth(req,res,next){
+   async needAuth(req,res,next){
       try{
-         log('isAuth is call');
-         if(req?.session?.user_id){
+         log('needAuth is call');
+         if(req?.session?.admin_id){
             next();
          }else{
-            return res.redirect(`${getEnv('APP_URL')}?msg=no_access`);
+            return res.redirect(`${getEnv('APP_URL')}user/login?msg=no_access`);
         }
       }catch(e){
          return super.toError(e, req ,res);

@@ -1,12 +1,13 @@
 import { log,getEnv, sleep, random } from "./core/utils.js";
 import express from "express";
 import nunjucks from 'nunjucks';
-
 import Translate from "./core/Translate.js";
 import * as fs from './core/fs.js'
 import crypto from "./core/Crypto.js";
 import DateTime from "./core/DateTime.js";
 import {MongoDB, Redis} from "./global.js";
+import Error404 from './controllers/Error404.js';
+import Error500 from './controllers/Error500.js';
 import * as templateHelper from './core/templateHelper.js';
 import templateReqMidlleware from "./middleware/templateReqMidlleware.js";
 import sessionMidlleware from "./middleware/sessionMidlleware.js";
@@ -22,6 +23,7 @@ class Aplication{
     #templateEnginge = null;
     async #initExpress(){
         try{
+            
             this.#app = express()
             this.#app.use(express.static('assets'));
             this.#app.use(express.static('media'));
@@ -60,11 +62,11 @@ class Aplication{
 
     async #initRoute(){
         try{
-            const Error404 =  (await import("./controllers/Error404.js")).default;
-            const Error500 =  (await import("./controllers/Error500.js")).default;
-            const Route = (await import("./routes/Route.js")).default;
+            // const Error404 =  (await import("./controllers/Error404.js")).default;
+            // const Error500 =  (await import("./controllers/Error500.js")).default;
+            const Route = await import("./routes/Route.js");
             log("route is running");
-            this.#app.use('/', Route);
+            this.#app.use('/', Route.default);
             this.#app.use(new Error404().handle);
             this.#app.use(new Error500().handle);
             
