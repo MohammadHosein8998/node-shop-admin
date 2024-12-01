@@ -1,11 +1,3 @@
-/*=========================================================================================
-  File Name: app.js
-  Description: Template related app JS.
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: hhttp://www.themeforest.net/user/pixinvent
-==========================================================================================*/
 window.colors = {
   solid: {
     primary: '#7367F0',
@@ -35,18 +27,6 @@ window.colors = {
   var $body = $('body');
   var $textcolor = '#4e5154';
   var assetPath = '../../../app-assets/';
-
-  if ($('body').attr('data-framework') === 'laravel') {
-    assetPath = $('body').attr('data-asset-path');
-  }
-
-  // to remove sm control classes from datatables
-  if ($.fn.dataTable) {
-    $.extend($.fn.dataTable.ext.classes, {
-      sFilterInput: 'form-control',
-      sLengthSelect: 'form-select'
-    });
-  }
 
   $(window).on('load', function () {
     var rtl;
@@ -104,10 +84,7 @@ window.colors = {
       });
     }
 
-    // Do not close cart or notification dropdown on click of the items
-    $('.dropdown-notification .dropdown-menu, .dropdown-cart .dropdown-menu').on('click', function (e) {
-      e.stopPropagation();
-    });
+
 
     //  Notifications & messages scrollable
     $('.scrollable-container').each(function () {
@@ -116,30 +93,7 @@ window.colors = {
       });
     });
 
-    // Reload Card
-    $('a[data-action="reload"]').on('click', function () {
-      var block_ele = $(this).closest('.card');
-      var reloadActionOverlay;
-      if ($html.hasClass('dark-layout')) {
-        var reloadActionOverlay = '#10163a';
-      } else {
-        var reloadActionOverlay = '#fff';
-      }
-      // Block Element
-      block_ele.block({
-        message: feather.icons['refresh-cw'].toSvg({ class: 'font-medium-1 spinner text-primary' }),
-        timeout: 2000, //unblock after 2 seconds
-        overlayCSS: {
-          backgroundColor: reloadActionOverlay,
-          cursor: 'wait'
-        },
-        css: {
-          border: 0,
-          padding: 0,
-          backgroundColor: 'none'
-        }
-      });
-    });
+    
 
     // Close Card
     $('a[data-action="close"]').on('click', function () {
@@ -182,11 +136,6 @@ window.colors = {
       //   .addClass("active");
     }
 
-    //  Dynamic height for the chartjs div for the chart animations to work
-    var chartjsDiv = $('.chartjs'),
-      canvasHeight = chartjsDiv.children('canvas').attr('height'),
-      mainMenu = $('.main-menu');
-    chartjsDiv.css('height', canvasHeight);
 
     if ($body.hasClass('boxed-layout')) {
       if ($body.hasClass('vertical-overlay-menu')) {
@@ -201,54 +150,7 @@ window.colors = {
       }
     }
 
-    /* Text Area Counter Set Start */
 
-    $('.char-textarea').on('keyup', function (event) {
-      checkTextAreaMaxLength(this, event);
-      // to later change text color in dark layout
-      $(this).addClass('active');
-    });
-
-    /*
-    Checks the MaxLength of the Textarea
-    -----------------------------------------------------
-    @prerequisite:  textBox = textarea dom element
-            e = textarea event
-                    length = Max length of characters
-    */
-    function checkTextAreaMaxLength(textBox, e) {
-      var maxLength = parseInt($(textBox).data('length')),
-        counterValue = $('.textarea-counter-value'),
-        charTextarea = $('.char-textarea');
-
-      if (!checkSpecialKeys(e)) {
-        if (textBox.value.length < maxLength - 1) textBox.value = textBox.value.substring(0, maxLength);
-      }
-      $('.char-count').html(textBox.value.length);
-
-      if (textBox.value.length > maxLength) {
-        counterValue.css('background-color', window.colors.solid.danger);
-        charTextarea.css('color', window.colors.solid.danger);
-        // to change text color after limit is maxedout out
-        charTextarea.addClass('max-limit');
-      } else {
-        counterValue.css('background-color', window.colors.solid.primary);
-        charTextarea.css('color', $textcolor);
-        charTextarea.removeClass('max-limit');
-      }
-
-      return true;
-    }
-    /*
-    Checks if the keyCode pressed is inside special chars
-    -------------------------------------------------------
-    @prerequisite:  e = e.keyCode object for the key pressed
-    */
-    function checkSpecialKeys(e) {
-      if (e.keyCode != 8 && e.keyCode != 46 && e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40)
-        return false;
-      else return true;
-    }
 
     $('.content-overlay').on('click', function () {
       $('.search-list').removeClass('show');
@@ -389,407 +291,10 @@ window.colors = {
     $.app.menu.manualScroller.updateHeight();
   });
 
-  $('#sidebar-page-navigation').on('click', 'a.nav-link', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    var $this = $(this),
-      href = $this.attr('href');
-    var offset = $(href).offset();
-    var scrollto = offset.top - 80; // minus fixed header height
-    $('html, body').animate(
-      {
-        scrollTop: scrollto
-      },
-      0
-    );
-    setTimeout(function () {
-      $this.parent('.nav-item').siblings('.nav-item').children('.nav-link').removeClass('active');
-      $this.addClass('active');
-    }, 100);
-  });
 
-  // main menu internationalization
 
-  // init i18n and load language file
-  if ($body.attr('data-framework') === 'laravel') {
-    // change language according to data-language of dropdown item
-    var language = $('html')[0].lang;
-    if (language !== null) {
-      // get the selected flag class
-      var selectedLang = $('.dropdown-language')
-        .find('a[data-language=' + language + ']')
-        .text();
-      var selectedFlag = $('.dropdown-language')
-        .find('a[data-language=' + language + '] .flag-icon')
-        .attr('class');
-      // set the class in button
-      $('#dropdown-flag .selected-language').text(selectedLang);
-      $('#dropdown-flag .flag-icon').removeClass().addClass(selectedFlag);
-    }
-  } else {
-    i18next.use(window.i18nextXHRBackend).init(
-      {
-        debug: false,
-        fallbackLng: 'en',
-        backend: {
-          loadPath: assetPath + 'data/locales/{{lng}}.json'
-        },
-        returnObjects: true
-      },
-      function (err, t) {
-        // resources have been loaded
-        jqueryI18next.init(i18next, $);
-      }
-    );
+  
 
-    // change language according to data-language of dropdown item
-    $('.dropdown-language .dropdown-item').on('click', function () {
-      var $this = $(this);
-      $this.siblings('.selected').removeClass('selected');
-      $this.addClass('selected');
-      var selectedLang = $this.text();
-      var selectedFlag = $this.find('.flag-icon').attr('class');
-      $('#dropdown-flag .selected-language').text(selectedLang);
-      $('#dropdown-flag .flag-icon').removeClass().addClass(selectedFlag);
-      var currentLanguage = $this.data('language');
-      i18next.changeLanguage(currentLanguage, function (err, t) {
-        $('.main-menu, .horizontal-menu-wrapper').localize();
-      });
-    });
-  }
-
-  /********************* Bookmark & Search ***********************/
-  // This variable is used for mouseenter and mouseleave events of search list
-  var $filename = $('.search-input input').data('search'),
-    bookmarkWrapper = $('.bookmark-wrapper'),
-    bookmarkStar = $('.bookmark-wrapper .bookmark-star'),
-    bookmarkInput = $('.bookmark-wrapper .bookmark-input'),
-    navLinkSearch = $('.nav-link-search'),
-    searchInput = $('.search-input'),
-    searchInputInputfield = $('.search-input input'),
-    searchList = $('.search-input .search-list'),
-    appContent = $('.app-content'),
-    bookmarkSearchList = $('.bookmark-input .search-list');
-
-  // Bookmark icon click
-  bookmarkStar.on('click', function (e) {
-    e.stopPropagation();
-    bookmarkInput.toggleClass('show');
-    bookmarkInput.find('input').val('');
-    bookmarkInput.find('input').blur();
-    bookmarkInput.find('input').focus();
-    bookmarkWrapper.find('.search-list').addClass('show');
-
-    var arrList = $('ul.nav.navbar-nav.bookmark-icons li'),
-      $arrList = '',
-      $activeItemClass = '';
-
-    $('ul.search-list li').remove();
-
-    for (var i = 0; i < arrList.length; i++) {
-      if (i === 0) {
-        $activeItemClass = 'current_item';
-      } else {
-        $activeItemClass = '';
-      }
-
-      var iconName = '',
-        className = '';
-      if ($(arrList[i].firstChild.firstChild).hasClass('feather')) {
-        var classString = arrList[i].firstChild.firstChild.getAttribute('class');
-        iconName = classString.split('feather-')[1].split(' ')[0];
-        className = classString.split('feather-')[1].split(' ')[1];
-      }
-
-      $arrList +=
-        '<li class="auto-suggestion ' +
-        $activeItemClass +
-        '">' +
-        '<a class="d-flex align-items-center justify-content-between w-100" href=' +
-        arrList[i].firstChild.href +
-        '>' +
-        '<div class="d-flex justify-content-start align-items-center">' +
-        feather.icons[iconName].toSvg({ class: 'me-75 ' + className }) +
-        '<span>' +
-        arrList[i].firstChild.dataset.bsOriginalTitle +
-        '</span>' +
-        '</div>' +
-        feather.icons['star'].toSvg({ class: 'text-warning bookmark-icon float-end' }) +
-        '</a>' +
-        '</li>';
-    }
-    $('ul.search-list').append($arrList);
-  });
-
-  // Navigation Search area Open
-  navLinkSearch.on('click', function () {
-    var $this = $(this);
-    var searchInput = $(this).parent('.nav-search').find('.search-input');
-    searchInput.addClass('open');
-    searchInputInputfield.focus();
-    searchList.find('li').remove();
-    bookmarkInput.removeClass('show');
-  });
-
-  // Navigation Search area Close
-  $('.search-input-close').on('click', function () {
-    var $this = $(this),
-      searchInput = $(this).closest('.search-input');
-    if (searchInput.hasClass('open')) {
-      searchInput.removeClass('open');
-      searchInputInputfield.val('');
-      searchInputInputfield.blur();
-      searchList.removeClass('show');
-      appContent.removeClass('show-overlay');
-    }
-  });
-
-  // Filter
-  if ($('.search-list-main').length) {
-    var searchListMain = new PerfectScrollbar('.search-list-main', {
-      wheelPropagation: false
-    });
-  }
-  if ($('.search-list-bookmark').length) {
-    var searchListBookmark = new PerfectScrollbar('.search-list-bookmark', {
-      wheelPropagation: false
-    });
-  }
-  // update Perfect Scrollbar on hover
-  $('.search-list-main').mouseenter(function () {
-    searchListMain.update();
-  });
-
-  searchInputInputfield.on('keyup', function (e) {
-    $(this).closest('.search-list').addClass('show');
-    if (e.keyCode !== 38 && e.keyCode !== 40 && e.keyCode !== 13) {
-      if (e.keyCode == 27) {
-        appContent.removeClass('show-overlay');
-        bookmarkInput.find('input').val('');
-        bookmarkInput.find('input').blur();
-        searchInputInputfield.val('');
-        searchInputInputfield.blur();
-        searchInput.removeClass('open');
-        if (searchInput.hasClass('show')) {
-          $(this).removeClass('show');
-          searchInput.removeClass('show');
-        }
-      }
-
-      // Define variables
-      var value = $(this).val().toLowerCase(), //get values of input on keyup
-        activeClass = '',
-        bookmark = false,
-        liList = $('ul.search-list li'); // get all the list items of the search
-      liList.remove();
-      // To check if current is bookmark input
-      if ($(this).parent().hasClass('bookmark-input')) {
-        bookmark = true;
-      }
-
-      // If input value is blank
-      if (value != '') {
-        appContent.addClass('show-overlay');
-
-        // condition for bookmark and search input click
-        if (bookmarkInput.focus()) {
-          bookmarkSearchList.addClass('show');
-        } else {
-          searchList.addClass('show');
-          bookmarkSearchList.removeClass('show');
-        }
-        if (bookmark === false) {
-          searchList.addClass('show');
-          bookmarkSearchList.removeClass('show');
-        }
-
-        var $startList = '',
-          $otherList = '',
-          $htmlList = '',
-          $bookmarkhtmlList = '',
-          $pageList =
-            '<li class="d-flex align-items-center">' +
-            '<a href="#">' +
-            '<h6 class="section-label mt-75 mb-0">Pages</h6>' +
-            '</a>' +
-            '</li>',
-          $activeItemClass = '',
-          $bookmarkIcon = '',
-          $defaultList = '',
-          a = 0;
-
-        // getting json data from file for search results
-        $.getJSON(assetPath + 'data/' + $filename + '.json', function (data) {
-          for (var i = 0; i < data.listItems.length; i++) {
-            // if current is bookmark then give class to star icon
-            // for laravel
-            if ($('body').attr('data-framework') === 'laravel') {
-              data.listItems[i].url = assetPath + data.listItems[i].url;
-            }
-
-            if (bookmark === true) {
-              activeClass = ''; // resetting active bookmark class
-              var arrList = $('ul.nav.navbar-nav.bookmark-icons li'),
-                $arrList = '';
-              // Loop to check if current seach value match with the bookmarks already there in navbar
-              for (var j = 0; j < arrList.length; j++) {
-                if (data.listItems[i].name === arrList[j].firstChild.dataset.bsOriginalTitle) {
-                  activeClass = ' text-warning';
-                  break;
-                } else {
-                  activeClass = '';
-                }
-              }
-
-              $bookmarkIcon = feather.icons['star'].toSvg({ class: 'bookmark-icon float-end' + activeClass });
-            }
-            // Search list item start with entered letters and create list
-            if (data.listItems[i].name.toLowerCase().indexOf(value) == 0 && a < 5) {
-              if (a === 0) {
-                $activeItemClass = 'current_item';
-              } else {
-                $activeItemClass = '';
-              }
-              $startList +=
-                '<li class="auto-suggestion ' +
-                $activeItemClass +
-                '">' +
-                '<a class="d-flex align-items-center justify-content-between w-100" href=' +
-                data.listItems[i].url +
-                '>' +
-                '<div class="d-flex justify-content-start align-items-center">' +
-                feather.icons[data.listItems[i].icon].toSvg({ class: 'me-75 ' }) +
-                '<span>' +
-                data.listItems[i].name +
-                '</span>' +
-                '</div>' +
-                $bookmarkIcon +
-                '</a>' +
-                '</li>';
-              a++;
-            }
-          }
-          for (var i = 0; i < data.listItems.length; i++) {
-            if (bookmark === true) {
-              activeClass = ''; // resetting active bookmark class
-              var arrList = $('ul.nav.navbar-nav.bookmark-icons li'),
-                $arrList = '';
-              // Loop to check if current search value match with the bookmarks already there in navbar
-              for (var j = 0; j < arrList.length; j++) {
-                if (data.listItems[i].name === arrList[j].firstChild.dataset.bsOriginalTitle) {
-                  activeClass = ' text-warning';
-                } else {
-                  activeClass = '';
-                }
-              }
-
-              $bookmarkIcon = feather.icons['star'].toSvg({ class: 'bookmark-icon float-end' + activeClass });
-            }
-            // Search list item not start with letters and create list
-            if (
-              !(data.listItems[i].name.toLowerCase().indexOf(value) == 0) &&
-              data.listItems[i].name.toLowerCase().indexOf(value) > -1 &&
-              a < 5
-            ) {
-              if (a === 0) {
-                $activeItemClass = 'current_item';
-              } else {
-                $activeItemClass = '';
-              }
-              $otherList +=
-                '<li class="auto-suggestion ' +
-                $activeItemClass +
-                '">' +
-                '<a class="d-flex align-items-center justify-content-between w-100" href=' +
-                data.listItems[i].url +
-                '>' +
-                '<div class="d-flex justify-content-start align-items-center">' +
-                feather.icons[data.listItems[i].icon].toSvg({ class: 'me-75 ' }) +
-                '<span>' +
-                data.listItems[i].name +
-                '</span>' +
-                '</div>' +
-                $bookmarkIcon +
-                '</a>' +
-                '</li>';
-              a++;
-            }
-          }
-          $defaultList = $('.main-search-list-defaultlist').html();
-          if ($startList == '' && $otherList == '') {
-            $otherList = $('.main-search-list-defaultlist-other-list').html();
-          }
-          // concatinating startlist, otherlist, defalutlist with pagelist
-          $htmlList = $pageList.concat($startList, $otherList, $defaultList);
-          $('ul.search-list').html($htmlList);
-          // concatinating otherlist with startlist
-          $bookmarkhtmlList = $startList.concat($otherList);
-          $('ul.search-list-bookmark').html($bookmarkhtmlList);
-          // Feather Icons
-          // if (feather) {
-          //   featherSVG();
-          // }
-        });
-      } else {
-        if (bookmark === true) {
-          var arrList = $('ul.nav.navbar-nav.bookmark-icons li'),
-            $arrList = '';
-          for (var i = 0; i < arrList.length; i++) {
-            if (i === 0) {
-              $activeItemClass = 'current_item';
-            } else {
-              $activeItemClass = '';
-            }
-
-            var iconName = '',
-              className = '';
-            if ($(arrList[i].firstChild.firstChild).hasClass('feather')) {
-              var classString = arrList[i].firstChild.firstChild.getAttribute('class');
-              iconName = classString.split('feather-')[1].split(' ')[0];
-              className = classString.split('feather-')[1].split(' ')[1];
-            }
-            $arrList +=
-              '<li class="auto-suggestion">' +
-              '<a class="d-flex align-items-center justify-content-between w-100" href=' +
-              arrList[i].firstChild.href +
-              '>' +
-              '<div class="d-flex justify-content-start align-items-center">' +
-              feather.icons[iconName].toSvg({ class: 'me-75 ' }) +
-              '<span>' +
-              arrList[i].firstChild.dataset.bsOriginalTitle +
-              '</span>' +
-              '</div>' +
-              feather.icons['star'].toSvg({ class: 'text-warning bookmark-icon float-end' }) +
-              '</a>' +
-              '</li>';
-          }
-          $('ul.search-list').append($arrList);
-          // Feather Icons
-          // if (feather) {
-          //   featherSVG();
-          // }
-        } else {
-          // if search input blank, hide overlay
-          if (appContent.hasClass('show-overlay')) {
-            appContent.removeClass('show-overlay');
-          }
-          // If filter box is empty
-          if (searchList.hasClass('show')) {
-            searchList.removeClass('show');
-          }
-        }
-      }
-    }
-  });
-
-  // Add class on hover of the list
-  $(document).on('mouseenter', '.search-list li', function (e) {
-    $(this).siblings().removeClass('current_item');
-    $(this).addClass('current_item');
-  });
-  $(document).on('click', '.search-list li', function (e) {
-    e.stopPropagation();
-  });
 
   $('html').on('click', function ($this) {
     if (!$($this.target).hasClass('bookmark-icon')) {
@@ -803,73 +308,11 @@ window.colors = {
     }
   });
 
-  // Prevent closing bookmark dropdown on input textbox click
-  $(document).on('click', '.bookmark-input input', function (e) {
-    bookmarkInput.addClass('show');
-    bookmarkSearchList.addClass('show');
-  });
+  
 
-  // Favorite star click
-  $(document).on('click', '.bookmark-input .search-list .bookmark-icon', function (e) {
-    e.stopPropagation();
-    if ($(this).hasClass('text-warning')) {
-      $(this).removeClass('text-warning');
-      var arrList = $('ul.nav.navbar-nav.bookmark-icons li');
-      for (var i = 0; i < arrList.length; i++) {
-        if (arrList[i].firstChild.dataset.bsOriginalTitle == $(this).parent()[0].innerText) {
-          arrList[i].remove();
-        }
-      }
-      e.preventDefault();
-    } else {
-      var arrList = $('ul.nav.navbar-nav.bookmark-icons li');
-      $(this).addClass('text-warning');
-      e.preventDefault();
-      var $url = $(this).parent()[0].href,
-        $name = $(this).parent()[0].innerText,
-        $listItem = '',
-        $listItemDropdown = '',
-        iconName = $(this).parent()[0].firstChild.firstChild.dataset.icon;
-      if ($($(this).parent()[0].firstChild.firstChild).hasClass('feather')) {
-        var classString = $(this).parent()[0].firstChild.firstChild.getAttribute('class');
-        iconName = classString.split('feather-')[1].split(' ')[0];
-      }
-      $listItem =
-        '<li class="nav-item d-none d-lg-block">' +
-        '<a class="nav-link" href="' +
-        $url +
-        '" data-bs-toggle="tooltip" data-bs-placement="bottom" title="' +
-        $name +
-        '">' +
-        feather.icons[iconName].toSvg({ class: 'ficon' }) +
-        '</a>' +
-        '</li>';
-      $('ul.nav.bookmark-icons').append($listItem);
-      $('[data-bs-toggle="tooltip"]').tooltip();
-    }
-  });
+ 
 
-  // If we use up key(38) Down key (40) or Enter key(13)
-  $(window).on('keydown', function (e) {
-    var $current = $('.search-list li.current_item'),
-      $next,
-      $prev;
-    if (e.keyCode === 40) {
-      $next = $current.next();
-      $current.removeClass('current_item');
-      $current = $next.addClass('current_item');
-    } else if (e.keyCode === 38) {
-      $prev = $current.prev();
-      $current.removeClass('current_item');
-      $current = $prev.addClass('current_item');
-    }
 
-    if (e.keyCode === 13 && $('.search-list li.current_item').length > 0) {
-      var selected_item = $('.search-list li.current_item a');
-      window.location = selected_item.attr('href');
-      $(selected_item).trigger('click');
-    }
-  });
 
   // Waves Effect
   Waves.init();
@@ -880,25 +323,7 @@ window.colors = {
   Waves.attach("[class*='btn-outline-']");
   Waves.attach("[class*='btn-flat-']");
 
-  $('.form-password-toggle .input-group-text').on('click', function (e) {
-    e.preventDefault();
-    var $this = $(this),
-      inputGroupText = $this.closest('.form-password-toggle'),
-      formPasswordToggleIcon = $this,
-      formPasswordToggleInput = inputGroupText.find('input');
 
-    if (formPasswordToggleInput.attr('type') === 'text') {
-      formPasswordToggleInput.attr('type', 'password');
-      if (feather) {
-        formPasswordToggleIcon.find('svg').replaceWith(feather.icons['eye'].toSvg({ class: 'font-small-4' }));
-      }
-    } else if (formPasswordToggleInput.attr('type') === 'password') {
-      formPasswordToggleInput.attr('type', 'text');
-      if (feather) {
-        formPasswordToggleIcon.find('svg').replaceWith(feather.icons['eye-off'].toSvg({ class: 'font-small-4' }));
-      }
-    }
-  });
 
   // on window scroll button show/hide
   $(window).on('scroll', function () {
@@ -1051,63 +476,5 @@ function featherSVG(iconSize) {
   return feather.replace({ width: iconSize, height: iconSize });
 }
 
-// jQuery Validation Global Defaults
-if (typeof jQuery.validator === 'function') {
-  jQuery.validator.setDefaults({
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      if (
-        element.parent().hasClass('input-group') ||
-        element.hasClass('select2') ||
-        element.attr('type') === 'checkbox'
-      ) {
-        error.insertAfter(element.parent());
-      } else if (element.hasClass('form-check-input')) {
-        error.insertAfter(element.parent().siblings(':last'));
-      } else {
-        error.insertAfter(element);
-      }
 
-      if (element.parent().hasClass('input-group')) {
-        element.parent().addClass('is-invalid');
-      }
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('error');
-      if ($(element).parent().hasClass('input-group')) {
-        $(element).parent().addClass('is-invalid');
-      }
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('error');
-      if ($(element).parent().hasClass('input-group')) {
-        $(element).parent().removeClass('is-invalid');
-      }
-    }
-  });
-}
 
-// Add validation class to input-group (input group validation fix, currently disabled but will be useful in future)
-/* function inputGroupValidation(el) {
-  var validEl,
-    invalidEl,
-    elem = $(el);
-
-  if (elem.hasClass('form-control')) {
-    if ($(elem).is('.form-control:valid, .form-control.is-valid')) {
-      validEl = elem;
-    }
-    if ($(elem).is('.form-control:invalid, .form-control.is-invalid')) {
-      invalidEl = elem;
-    }
-  } else {
-    validEl = elem.find('.form-control:valid, .form-control.is-valid');
-    invalidEl = elem.find('.form-control:invalid, .form-control.is-invalid');
-  }
-  if (validEl !== undefined) {
-    validEl.closest('.input-group').removeClass('.is-valid is-invalid').addClass('is-valid');
-  }
-  if (invalidEl !== undefined) {
-    invalidEl.closest('.input-group').removeClass('.is-valid is-invalid').addClass('is-invalid');
-  }
-} */
