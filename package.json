@@ -4,6 +4,9 @@
   "main": "app.js",
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "dev" : "nodemon -e html,css,js,mjs,json,.env"
+  },
   "dependencies": {
     "auto-bind": "^5.0.1",
     "connect-redis": "^7.1.1",

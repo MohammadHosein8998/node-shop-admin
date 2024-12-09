@@ -3,6 +3,9 @@ import home from './home.js';
 export default {
     'user' : user,
     'home' : home,
+    "menu_logout" : "خروج",
+    "menu_setting" : "تنظیمات",
+    "menu_profile" : "پروفایل",
     "project_title" : "فروشگاه تست",
     "page_404_title" : "صفحه یافت نشد",
     "page_500_title" : "خطا در سرور",

@@ -39,8 +39,14 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> 
     </div>
 </div>
 
+{% endblock %}
+
+
+{% block js %}
+    <script src="{{ asset_lang_url('home.js')}}"></script>  
+    <script src="{{ asset_url('controllers/home/home.js')}}"></script>    
 {% endblock %}

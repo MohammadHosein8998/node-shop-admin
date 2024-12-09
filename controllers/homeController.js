@@ -6,6 +6,7 @@ import Translate from "../core/Translate.js";
 import Crypto from "../core/Crypto.js";
 import DateTime from "../core/DateTime.js";;
 import AdminModel from '../models/admin.js';
+import translate from "../core/Translate.js";
 
 
 class homeController extends BaseController{
@@ -19,6 +20,10 @@ class homeController extends BaseController{
     async getIndex(req, res){
         try{
             const data ={
+                "dashboard" : translate.t("home.dashboard"),
+                "menu_logout" : translate.t("menu_logout"),
+                "menu_setting" : translate.t("menu_setting"),
+                "menu_profile" : translate.t("menu_profile")
 
             }
             return res.render(`home/index`, data);

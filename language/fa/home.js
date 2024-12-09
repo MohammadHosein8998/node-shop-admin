@@ -1,3 +1,4 @@
 export default {
-    'no_access' : 'لطفا اول وارد حسابتان شوید'
+    'no_access' : 'لطفا اول وارد حسابتان شوید',
+    "dashboard" : "داشبورد"
 };

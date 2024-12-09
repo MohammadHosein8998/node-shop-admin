@@ -47,9 +47,11 @@ class Aplication{
             });
             this.#app.set('view engine' , 'html');
             this.#templateEnginge.addGlobal('t',Translate.t);
+            this.#templateEnginge.addGlobal("asset_lang_url", (path = "") =>{ return getEnv('ASSET-DIRECTORY') + 
+                "/lang/" + getEnv("APP_LANG") + "/" + path} );
             this.#templateEnginge.addGlobal("APP_URL", getEnv('APP_URL'));
             this.#templateEnginge.addGlobal("TEMPLATE_NAME",  getEnv('TEMPLATE') + "/");
-            this.#templateEnginge.addGlobal("asset_url",  (url = '')=>{ return getEnv('ASSET-DIRECTORY') + "/" + url});
+            this.#templateEnginge.addGlobal("asset_url",  (path = '')=>{ return getEnv('ASSET-DIRECTORY') + "/" + path});
             this.#templateEnginge.addExtension('alertDangerExtension', new templateHelper.alertDangerExtension());
             this.#templateEnginge.addExtension('alertSuccessExtension', new templateHelper.alertSuccessExtension());
 

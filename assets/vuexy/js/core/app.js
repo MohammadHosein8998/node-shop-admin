@@ -289,29 +289,7 @@ window.colors = {
   // Update manual scroller when window is resized
   $(window).resize(function () {
     $.app.menu.manualScroller.updateHeight();
-  });
-
-
-
-  
-
-
-  $('html').on('click', function ($this) {
-    if (!$($this.target).hasClass('bookmark-icon')) {
-      if (bookmarkSearchList.hasClass('show')) {
-        bookmarkSearchList.removeClass('show');
-      }
-      if (bookmarkInput.hasClass('show')) {
-        bookmarkInput.removeClass('show');
-        appContent.removeClass('show-overlay');
-      }
-    }
-  });
-
-  
-
- 
-
+  }); 
 
 
   // Waves Effect

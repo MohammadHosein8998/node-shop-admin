@@ -62,6 +62,17 @@ class userController extends BaseController{
             return super.toError(e , req ,res);
         }
     }
+
+    async getLogout(req ,res){
+        try{
+            delete req.session.admin_id;
+            req.session.destroy();
+            return res.redirect(`${this.#URL}login/?msg=success-logout`)
+             
+        }catch(e){
+            return super.toError(e , req ,res);
+        }
+    }
 }
 
 export default userController;

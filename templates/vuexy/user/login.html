@@ -110,6 +110,10 @@
                                     {{ t('user.Login_account_blocked')}}
                                 {% endAlertDanger %}
 
+                                {% AlertDanger "success-logout" %}
+                                    {{ t('user.success-logout')}}
+                                {% endAlertDanger %}
+
                                 <form id="login-form1" class="auth-login-form mt-2" action="" method="POST" autocomplete="off">
                                     <div class="mb-1">
                                         <label for="email" class="form-label">

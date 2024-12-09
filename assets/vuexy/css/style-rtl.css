@@ -38,3 +38,8 @@ label.error{
     font-size: 14px;
     padding-top: 10px;
 }
+
+a.dropdown-item{
+    font-family: 'samim';
+    font-size: 17px;
+}

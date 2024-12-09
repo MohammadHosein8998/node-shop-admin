@@ -11,6 +11,7 @@ try{
     //login
     route.get("/login", new authmiddleware().isAuth , Controller.getLogin);
     route.post("/login", new authmiddleware().isAuth , Controller.postLogin);  
+    route.get("/logout", new authmiddleware().needAuth , Controller.getLogout);  
 
 }catch(e){
     route.use(Controller.errorHandling(e.toString()))

@@ -3,11 +3,13 @@
 <!-- BEGIN: Head-->
 
 <head>
-    
+    <script>
+        APP_URL = '{{APP_URL}}';
+    </script>
     <base href="{{APP_URL}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
-    <title>{{t('project_title')}}</title>
+    <title>{{dashboard}}</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="{{asset_url('images/ico/favicon.ico')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/bootstrap.min.css') }}">
@@ -16,6 +18,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/components.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/pages/page-misc.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset_url('css/style-rtl.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('css/sweetalert2.min.css')}}">
+   
     
     <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/themes/dark-layout.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset_url('css-rtl/themes/semi-dark-layout.min.css')}}">
@@ -72,20 +76,21 @@
 
     <!--  wrong <script src="{{ asset_url('data/locales/en.json')}}"></script> -->
 
-    <script src="{{ asset_url('vendors/js/vendors.min.js')}}"></script>
+    <script src="{{ asset_url('js/jquery-3.7.1.min.js')}}"></script>
+    <script src="{{ asset_url('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset_url('vendors/js/waves/waves.min.js')}}"></script>
+    <script src="{{ asset_url('vendors/js/unison-js/unison-js.min.js')}}"></script>
+    <script src="{{ asset_url('vendors/js/feather-icons/feather-icons.min.js')}}"></script>
+    <script src="{{ asset_url('vendors/js/perfectscrollbar/perfect-scrollbar.min.js')}}"></script>
+    <!-- <script src="{{ asset_url('vendors/js/vendors.min.js')}}"></script> -->
     <script src="{{ asset_url('js/core/app-menu.min.js')}}"></script>
+    <script src="{{ asset_url('js/sweetalert2.min.js')}}"></script>
     <script src="{{ asset_url('js/core/app.js')}}"></script>
+    <script src="{{ asset_url('js/i18next.min.js')}}"></script>
+    <script src="{{ asset_lang_url('global.js')}}"></script>
 
-    <script>
-        $(window).on('load', function() {
-            if (feather) {
-                feather.replace({
-                    width: 14,
-                    height: 14
-                });
-            }
-        })
-    </script>
+    <script src="{{ asset_url('js/init.js')}}"></script>
+
     {% block js %}{% endblock %}
 </body>
 <!-- END: Body-->

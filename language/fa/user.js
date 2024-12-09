@@ -13,5 +13,6 @@ export default {
     'validation_password_required' : 'لطفا کلمه عبور را وارد نمایید',
     "Login_failed" : "ایمیل یا کلمه عبور صحیح نمی باشد",
     "Login_account_disabled" : "حساب کاربری شما غیرفعال میباشد" ,
-    "Login_account_blocked" : "حساب کاربری شما مسدود میباشد"
+    "Login_account_blocked" : "حساب کاربری شما مسدود میباشد",
+    "success-logout" : "خروج با موفقیت انجام شد"
 };
