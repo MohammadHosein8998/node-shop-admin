@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
+import mongoose from "mongoose";
+
 
 dotenvExpand.expand(dotenv.config());
 
@@ -71,3 +73,15 @@ export function isJSON(data) {
     }
     return true;
 }
+
+export function toObjectId(str){
+    try{
+        if(mongoose.Types.ObjectId.isValid(str))
+            return new mongoose.Types.ObjectId(str);
+        else
+            return "";
+    }catch(e){
+        return "";
+    }
+}
+

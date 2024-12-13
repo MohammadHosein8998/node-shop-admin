@@ -1,4 +1,5 @@
 export default {
+    "profile" : "ویرایش پروفایل",
     "project_title" : "فروشگاه تست",
     "page_description" : "لطفا برای دسترسی احراز هویت کنید",
     "email" : "ایمیل",
@@ -14,5 +15,13 @@ export default {
     "Login_failed" : "ایمیل یا کلمه عبور صحیح نمی باشد",
     "Login_account_disabled" : "حساب کاربری شما غیرفعال میباشد" ,
     "Login_account_blocked" : "حساب کاربری شما مسدود میباشد",
-    "success-logout" : "خروج با موفقیت انجام شد"
+    "success-logout" : "خروج با موفقیت انجام شد",
+    "profile_save" : "ذخیره",
+    "profile_back" : "بازگشت",
+    "profile_first_name" : "نام",
+    "last_name" : "نام خانوادگی",
+    "pass1" : "کلمه عبور جاری",
+    "pass2" : " کلمه عبور جدید",
+    "pass3" : "تکرار کلمه عبور",
+    "avatar" : "تغییر آواتار"
 };

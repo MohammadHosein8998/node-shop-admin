@@ -43,3 +43,7 @@ a.dropdown-item{
     font-family: 'samim';
     font-size: 17px;
 }
+
+.col-form-label, .col-form-label-lg, .col-form-label-sm{
+    font-size: inherit !important;
+}

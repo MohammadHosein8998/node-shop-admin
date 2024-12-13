@@ -51,8 +51,9 @@ class userController extends BaseController{
                 return res.redirect(`${this.#URL}login/?msg=${result?.errors[0].msg}`);
             };
             const resutlogin = await this.model.login(email , password);
-            if(typeof resutlogin === "string"){
-                req.session.admin_id = resutlogin;
+            if(resutlogin?._id){
+                req.session.admin_id = resutlogin?._id;
+                req.session.admin_info = resutlogin;
                 delete req.session.user_login_data;
                 return res.redirect(`${getEnv('APP_URL')}`);
             }else{
@@ -66,9 +67,23 @@ class userController extends BaseController{
     async getLogout(req ,res){
         try{
             delete req.session.admin_id;
+            delete req.session.admin_info;
             req.session.destroy();
             return res.redirect(`${this.#URL}login/?msg=success-logout`)
              
+        }catch(e){
+            return super.toError(e , req ,res);
+        }
+    }
+
+    async getProfile(req ,res){
+        try{
+            
+            const data = {
+                'title' : Translate.t('user.profile'),
+                "user" : req.session.admin_info
+            }
+            return res.render("user/index", data);
         }catch(e){
             return super.toError(e , req ,res);
         }

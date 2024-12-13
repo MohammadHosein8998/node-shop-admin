@@ -11,7 +11,8 @@ try{
     //login
     route.get("/login", new authmiddleware().isAuth , Controller.getLogin);
     route.post("/login", new authmiddleware().isAuth , Controller.postLogin);  
-    route.get("/logout", new authmiddleware().needAuth , Controller.getLogout);  
+    route.get("/logout", new authmiddleware().needAuth , Controller.getLogout);
+    route.get("/profile", new authmiddleware().needAuth , Controller.getProfile);
 
 }catch(e){
     route.use(Controller.errorHandling(e.toString()))

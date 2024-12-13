@@ -12,7 +12,6 @@ export default class authMidlleware extends BaseMiddleware {
    
    async isAuth(req,res,next){
       try{
-         log('isAuth is call');
          if(req?.session?.admin_id){
             return res.redirect(`${getEnv('APP_URL')}`);
         }else{
@@ -25,8 +24,8 @@ export default class authMidlleware extends BaseMiddleware {
    }
    async needAuth(req,res,next){
       try{
-         log('needAuth is call');
          if(req?.session?.admin_id){
+            req.app.locals.admin_info = req.session.admin_info;
             next();
          }else{
             return res.redirect(`${getEnv('APP_URL')}user/login?msg=no_access`);

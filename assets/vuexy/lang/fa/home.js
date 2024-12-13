@@ -9,7 +9,7 @@ var home = {
 
 
 $(window).ready(() => {    
-    console.log(' i18next is loaded!!')
+    console.log(' i18next home is loaded!!')
 
     i18next.addResourceBundle('lang', 'translation', {home});
 });

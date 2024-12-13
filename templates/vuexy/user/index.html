@@ -1,0 +1,116 @@
+{% extends "../layout/base.html" %}
+
+{% block navbar %}
+<div class="col-12">
+    <h2 class="float-start mb-0">
+        {{t('user.profile')}}
+    </h2>
+    
+</div>
+{% endblock %}
+
+{% block body %}
+<form class="form form-horizontal" id="form_profile" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-1 row">
+                <div class="col-sm-3">
+                    <label class="col-form-label" for="first_name">
+                        {{t('user.profile_first_name')}}
+                        <span class="text-danger">*</span>
+                    </label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" id="first_name" class="form-control" name="first_name" value="{{ user.first_name}}"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="mb-1 row">
+                <div class="col-sm-3">
+                    <label class="col-form-label" for="last_name">
+                        {{t('user.last_name')}} :
+                        <span class="text-danger">*</span>
+                    </label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" id="last_name" class="form-control" name="last_name"  value="{{ user.last_name}}"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="mb-1 row">
+                <div class="col-sm-3">
+                    <label class="col-form-label" for="email">
+                        {{t('user.email')}} :
+                        <span class="text-danger">*</span>
+                    </label>
+                </div>
+                <div class="col-sm-9">
+                    <input dir="ltr" type="text" id="email" class="form-control" name="email" value="{{ user.email}}"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="mb-1 row">
+                <div class="col-sm-3">
+                    <label class="col-form-label" for="pass1">
+                        {{t('user.pass1')}} :
+                    </label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="number" id="pass1" class="form-control" name="pass1" />
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="mb-1 row">
+                <div class="col-sm-3">
+                    <label class="col-form-label" for="pass2">
+                        {{t('user.pass2')}} :
+                    </label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="number" id="pass2" class="form-control" name="pass2" />
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="mb-1 row">
+                <div class="col-sm-3">
+                    <label class="col-form-label" for="pass3">
+                        {{t('user.pass3')}} :
+                    </label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="number" id="pass3" class="form-control" name="pass3" />
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="mb-1 row">
+                <div class="col-sm-3">
+                    <label class="col-form-label" for="avatar">
+                        {{t('user.avatar')}} :
+                    </label>
+                </div>
+                <div class="col-sm-9">
+                    <input dir="ltr" type="file" id="avatar" class="form-control" name="avatar" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 offset-sm-3">
+            <button type="submit" class="btn btn-primary">{{t('user.profile_save')}}</button>
+            <button type="reset" class="btn btn-danger" onclick="redirect(APP_URL)">{{t('user.profile_back')}}</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+
+{% block js %}
+    <script src="{{ asset_url('js/jquery.validate.min.js')}}"></script>
+    <script src="{{ asset_lang_url('user/profile.js')}}"></script>  
+    <script src="{{ asset_url('controllers/user/profile.js')}}"></script>    
+    <script src="{{ asset_lang_url('home.js')}}"></script>
+{% endblock %} 

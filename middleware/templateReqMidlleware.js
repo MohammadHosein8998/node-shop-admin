@@ -10,7 +10,7 @@ export default class templateReqMidlleware extends BaseMiddleware {
            req.app.set("req" , req);
            next();
         }catch(e){
-           next()
+           next();
         }
   }
 

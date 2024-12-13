@@ -1,7 +1,7 @@
 
 import { MongoDB } from '../global.js';
 import AdminSchema from '../schemas/admin.js';
-import { log } from '../core/utils.js';
+import { log ,toObjectId } from '../core/utils.js';
 import DateTime from '../core/DateTime.js';
 import Crypto from '../core/Crypto.js';
 
@@ -26,7 +26,7 @@ class AdminModel{
                 const user_id = result._id+''
                 if(this.#hashPassword(password , user_id) === result.password){
                     if (result.status == 2) {
-                        return user_id;
+                        return result;//login success
                     }
                     switch(result.status){
                         case 0:
@@ -42,6 +42,15 @@ class AdminModel{
             }
         }catch(e){
             throw Error(`AdminModel Error : ${e.toString()}`);
+        }
+    }
+    
+    async getprofile(user_id){
+        user_id = toObjectId(user_id);
+        if(user_id){
+            return this.model.findOne({"_id": user_id});
+        }else{
+            return null;
         }
     }
 

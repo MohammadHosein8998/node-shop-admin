@@ -2,6 +2,7 @@ import autoBind from "auto-bind";
 import {encode} from 'html-entities';
 import { getEnv, log, toNumber } from "./utils.js";
 
+
 export default class BaseController{
 
     constructor(){
@@ -81,4 +82,8 @@ export default class BaseController{
             return 0;
         }
     }
+
+
+
+
 }
