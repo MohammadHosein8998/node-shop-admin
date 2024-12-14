@@ -45,13 +45,37 @@ class AdminModel{
         }
     }
     
-    async getprofile(user_id){
-        user_id = toObjectId(user_id);
-        if(user_id){
-            return this.model.findOne({"_id": user_id});
+    async getprofile(admin_id){
+        admin_id = toObjectId(admin_id);
+        if(admin_id){
+            return this.model.findOne({"_id": admin_id});
         }else{
             return null;
+        }this.model
+    }
+    async checkEmail(email){
+       return this.model.findOne({"email" : email}).countDocuments();
+    }
+
+    async saveProfile(admin_id, first_name , last_name , email){
+        const currentUser = await this.getprofile(admin_id);
+        const data = {
+            first_name , last_name
+        };
+        
+        if(currentUser?.email !== email ){
+            const emailCount = await this.checkEmail(email);
+            if(emailCount > 0 ){
+                return -1;
+            }
+            data["email"] = email;
+            
         }
+
+        await this.model.updateOne({"_id" : admin_id} , {
+            "$set" : data
+        });
+        return 1;
     }
 
 }

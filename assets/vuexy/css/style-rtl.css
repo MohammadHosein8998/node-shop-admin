@@ -47,3 +47,9 @@ a.dropdown-item{
 .col-form-label, .col-form-label-lg, .col-form-label-sm{
     font-size: inherit !important;
 }
+
+.header-navbar .navbar-container ul.navbar-nav li a.dropdown-user-link .user-name{
+    font-size: inherit !important;
+    font-family: 'samim';
+    /* font-size: 17px; */
+}

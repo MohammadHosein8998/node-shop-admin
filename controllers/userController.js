@@ -82,12 +82,51 @@ class userController extends BaseController{
             const data = {
                 'title' : Translate.t('user.profile'),
                 "user" : req.session.admin_info
-            }
+            };
             return res.render("user/index", data);
         }catch(e){
             return super.toError(e , req ,res);
         }
     }
+
+    async #postprofileValidation(req){
+        try{
+            await body('first_name').not().isEmpty().withMessage("err1")
+            .run(req);
+            await body('last_name').not().isEmpty().withMessage("err2")
+            .run(req);
+            await body('email').not().isEmpty().withMessage("err3")
+            .isEmail().withMessage("err4")
+            return validationResult(req)
+        }catch(e){
+            return {};
+        }
+    }
+
+    async saveProfile(req ,res){
+        try{
+            const first_name = super.safeString(this.input(req.body.first_name));
+            const last_name = super.safeString(this.input(req.body.last_name));
+            const email = super.safeString(this.input(req.body.email));
+            const result = await this.#postprofileValidation(req);
+            if(!result.isEmpty()){
+                return res.redirect(`${this.#URL}profile/?msg=${result?.errors[0].msg}`);   
+            };
+            const userResult = await this.model.saveProfile(req.session.admin_id , first_name , last_name, email);
+            if(userResult == 1){
+                req.session.admin_info = await this.model.getprofile(req.session.admin_id);
+                log(req.session.admin_info);
+                return res.redirect(`${this.#URL}profile/?msg=success`);
+            }else{
+                return res.redirect(`${this.#URL}profile/?msg=${userResult}`);
+            }
+            
+        }catch(e){
+            return super.toError(e , req ,res);
+        }
+    }
+
+
 }
 
 export default userController;

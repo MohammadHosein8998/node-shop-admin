@@ -23,5 +23,11 @@ export default {
     "pass1" : "کلمه عبور جاری",
     "pass2" : " کلمه عبور جدید",
     "pass3" : "تکرار کلمه عبور",
-    "avatar" : "تغییر آواتار"
+    "avatar" : "تغییر آواتار",
+    "profile_validation_first_name" : "لطفا نام خود را وارد کنید.",
+    "profile_validation_last_name" : "لطفا نام خانوادگی خود را وارد کنید.",
+    "success_changing_profile" : "پروفایل شما با موفقیت تغییر کرد.",
+    "profile_validation_empty_email" : 'لطفا ایمیل را وارد نمایید.',
+    "profile_validation_email" :  'ایمیل باید معتبر باشد.',
+    "profile_validation_email_exist" :  'ایمیل تکراری است.'
 };
