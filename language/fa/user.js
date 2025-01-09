@@ -29,5 +29,10 @@ export default {
     "success_changing_profile" : "پروفایل شما با موفقیت تغییر کرد.",
     "profile_validation_empty_email" : 'لطفا ایمیل را وارد نمایید.',
     "profile_validation_email" :  'ایمیل باید معتبر باشد.',
-    "profile_validation_email_exist" :  'ایمیل تکراری است.'
+    "profile_validation_email_exist" :  'ایمیل تکراری است.',
+    'profile_password_hint_changed' : "اگر نمی خواهید رمز عبور را تغییر  دهید فیلد های زیر را خالی بگزارید.",
+    'profile_validation_pass2_is_empty' : "لطفا کلمه عبور جدید را وارد نمایید.",
+    'profile_validation_pass3_is_empty' : "لطفا تکرار کلمه عبور جدید را وارد نمایید.",
+    'profile_validation_pass3_is_not_match' : "کلمات عبور وارد شده یکسان نمی باشد.",
+    'profile_validation_current_password_is_not_correct' : "کلمه عبور جاری صحیح نمی باشد."
 };

@@ -96,7 +96,24 @@ class userController extends BaseController{
             await body('last_name').not().isEmpty().withMessage("err2")
             .run(req);
             await body('email').not().isEmpty().withMessage("err3")
-            .isEmail().withMessage("err4")
+            .isEmail().withMessage("err4").run(req);
+            await body(['pass1', 'pass2' , 'pass3']).custom(()=>{
+                const pass1 = this.input(req.body.pass1);
+                const pass2 = this.input(req.body.pass2);
+                const pass3 = this.input(req.body.pass3);
+                if(pass1 !== ""){
+                    if(pass2 === ""){
+                        throw new Error("err5");
+                    }
+                    if(pass3 === ""){
+                        throw new Error("err6");
+                    }
+                    if( pass2 !== pass3){
+                        throw new Error("err7");
+                    }
+                }
+                return true;
+            }).run(req);
             return validationResult(req)
         }catch(e){
             return {};
@@ -108,14 +125,16 @@ class userController extends BaseController{
             const first_name = super.safeString(this.input(req.body.first_name));
             const last_name = super.safeString(this.input(req.body.last_name));
             const email = super.safeString(this.input(req.body.email));
+            const pass1 = this.input(req.body.pass1);
+            const pass2 = this.input(req.body.pass2);
+            const pass3 = this.input(req.body.pass3);
             const result = await this.#postprofileValidation(req);
             if(!result.isEmpty()){
                 return res.redirect(`${this.#URL}profile/?msg=${result?.errors[0].msg}`);   
             };
-            const userResult = await this.model.saveProfile(req.session.admin_id , first_name , last_name, email);
+            const userResult = await this.model.saveProfile(req.session.admin_id , first_name , last_name, email, pass1 , pass2 , pass3);
             if(userResult == 1){
                 req.session.admin_info = await this.model.getprofile(req.session.admin_id);
-                log(req.session.admin_info);
                 return res.redirect(`${this.#URL}profile/?msg=success`);
             }else{
                 return res.redirect(`${this.#URL}profile/?msg=${userResult}`);

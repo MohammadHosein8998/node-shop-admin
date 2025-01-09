@@ -11,9 +11,9 @@ class AdminModel{
         this.model = MongoDB.db.model('admin', AdminSchema);
     }
     
-    #hashPassword(password , user_id){
+    #hashPassword(password , admin_id){
             try{
-                return Crypto.hash(user_id + password + user_id);
+                return Crypto.hash(admin_id + password + admin_id);
             }catch(e){
                 throw Error(`hashPasssswrd Error : ${e.toString()}`);
             }
@@ -23,8 +23,8 @@ class AdminModel{
         try{
             const result = await this.model.findOne({ "email" : email});
             if(result?._id){
-                const user_id = result._id+''
-                if(this.#hashPassword(password , user_id) === result.password){
+                const admin_id = result._id+''
+                if(this.#hashPassword(password , admin_id) === result.password){
                     if (result.status == 2) {
                         return result;//login success
                     }
@@ -37,7 +37,7 @@ class AdminModel{
                     }
     
                 }else{
-                    return -1 // wrong username or password
+                    return -1 ;// wrong username or password
                 }
             }
         }catch(e){
@@ -51,13 +51,13 @@ class AdminModel{
             return this.model.findOne({"_id": admin_id});
         }else{
             return null;
-        }this.model
+        }
     }
     async checkEmail(email){
        return this.model.findOne({"email" : email}).countDocuments();
     }
 
-    async saveProfile(admin_id, first_name , last_name , email){
+    async saveProfile(admin_id, first_name , last_name , email, pass1 , pass2 , pass3){
         const currentUser = await this.getprofile(admin_id);
         const data = {
             first_name , last_name
@@ -69,7 +69,14 @@ class AdminModel{
                 return -1;
             }
             data["email"] = email;
-            
+        }
+
+        if( pass1 != "" && pass2 != "" && pass3 != ""){
+            if(this.#hashPassword(pass1 , admin_id) == currentUser?.password){
+                data["password"] = this.#hashPassword(pass3 , admin_id);
+            }else{
+                return -2 ;// wrong password
+            }
         }
 
         await this.model.updateOne({"_id" : admin_id} , {

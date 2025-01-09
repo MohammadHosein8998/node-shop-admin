@@ -32,8 +32,24 @@
                         {{ t('user.profile_validation_email')}}
                     {% endAlertDanger %}
 
+                    {% AlertDanger "err5" %}
+                        {{ t('user.profile_validation_pass2_is_empty')}}
+                    {% endAlertDanger %}
+
+                    {% AlertDanger "err6" %}
+                        {{ t('user.profile_validation_pass3_is_empty')}}
+                    {% endAlertDanger %}
+
+                    {% AlertDanger "err7" %}
+                        {{ t('user.profile_validation_pass3_is_not_match')}}
+                    {% endAlertDanger %}
+
                     {% AlertDanger "-1" %}
                         {{ t('user.profile_validation_email_exist')}}
+                    {% endAlertDanger %}
+
+                    {% AlertDanger "-2" %}
+                    {{ t('user.profile_validation_current_password_is_not_correct')}}
                     {% endAlertDanger %}
 
                     {% AlertSuccess "success" %}
@@ -83,12 +99,27 @@
                             <div class="col-12">
                                 <div class="mb-1 row">
                                     <div class="col-sm-3">
+                                        <label class="col-form-label" for="avatar">
+                                            {{t('user.avatar')}} :
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input dir="ltr" type="file" id="avatar" class="form-control" name="avatar" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="alert alert-warning text-center">
+                                    {{t('user.profile_password_hint_changed')}}
+                                </div>
+                                <div class="mb-1 row">
+                                    <div class="col-sm-3">
                                         <label class="col-form-label" for="pass1">
                                             {{t('user.pass1')}} :
                                         </label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="number" id="pass1" class="form-control" name="pass1" />
+                                        <input dir="ltr" type="password" id="pass1" class="form-control" name="pass1" />
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +131,7 @@
                                         </label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="number" id="pass2" class="form-control" name="pass2" />
+                                        <input dir="ltr" type="password" id="pass2" class="form-control" name="pass2" />
                                     </div>
                                 </div>
                             </div>
@@ -112,22 +143,11 @@
                                         </label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="number" id="pass3" class="form-control" name="pass3" />
+                                        <input dir="ltr" type="password" id="pass3" class="form-control" name="pass3" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="mb-1 row">
-                                    <div class="col-sm-3">
-                                        <label class="col-form-label" for="avatar">
-                                            {{t('user.avatar')}} :
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input dir="ltr" type="file" id="avatar" class="form-control" name="avatar" />
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="col-sm-9 offset-sm-3">
                                 <button type="submit" class="btn btn-primary">{{t('user.profile_save')}}</button>
                                 <button type="reset" class="btn btn-danger" onclick="redirect(APP_URL)">{{t('user.profile_back')}}</button>
