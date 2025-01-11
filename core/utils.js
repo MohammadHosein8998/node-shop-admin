@@ -3,6 +3,7 @@ import dotenvExpand from 'dotenv-expand';
 import mongoose from "mongoose";
 
 
+
 dotenvExpand.expand(dotenv.config());
 
 export function getEnv(key , to="string"){
@@ -83,5 +84,10 @@ export function toObjectId(str){
     }catch(e){
         return "";
     }
+}
+
+
+export function getpath(){
+    return process.cwd() + "/";
 }
 

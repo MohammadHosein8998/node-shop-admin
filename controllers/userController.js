@@ -1,10 +1,12 @@
 
 import BaseController from "../core/BaseController.js";
 import { validationResult, body} from 'express-validator'
-import { log,getEnv,random, stringify } from "../core/utils.js";
+import { log,getEnv,random, stringify , getpath} from "../core/utils.js";
 import Translate from "../core/Translate.js";
 import Crypto from "../core/Crypto.js";
+import { allowImageFileUploader ,fileNameGenerator , toByte  } from "../core/uploader.js";
 import DateTime from "../core/DateTime.js";;
+import {FileExist, unlink} from '../core/fs.js';
 import AdminModel from '../models/admin.js';
 
 
@@ -78,7 +80,16 @@ class userController extends BaseController{
 
     async getProfile(req ,res){
         try{
-            
+            const deleteAvater = this.input(req.query.del);
+            if(req.query.del === '1' && req.session.admin_info?.avatar){
+                const path = getpath() + 'media/' + req.session.admin_info?.avatar 
+                if (FileExist(path)) {
+                    unlink(path);
+                }
+                await this.model.deleteAvatar(req.session.admin_id);
+                req.session.admin_info.avatar  = "";
+                return res.redirect(`${this.#URL}profile/?msg=avatar-deleted`)
+            }
             const data = {
                 'title' : Translate.t('user.profile'),
                 "user" : req.session.admin_info
@@ -132,9 +143,28 @@ class userController extends BaseController{
             if(!result.isEmpty()){
                 return res.redirect(`${this.#URL}profile/?msg=${result?.errors[0].msg}`);   
             };
-            const userResult = await this.model.saveProfile(req.session.admin_id , first_name , last_name, email, pass1 , pass2 , pass3);
+            let avatar = req.session.admin_info?.avatar ?? "";
+            if(avatar === "" && req?.files?.avatar){
+                
+                if(req?.files?.avatar?.size <= toByte(5,"mb")){
+                    const ext = allowImageFileUploader(req?.files?.avatar?.mimetype);
+                    if(ext !== ""){
+                        const filename = 'avatars/' + fileNameGenerator('avatar' , ext);
+                        const path =  getpath() + "media/" + filename;
+                        await req.files.avatar.mv(path);
+                        avatar = filename;
+                    }else{
+                        return res.redirect(`${this.#URL}profile/?msg=upload-error-2`);
+                    }
+                }else{
+                    return res.redirect(`${this.#URL}profile/?msg=upload-error-1`);
+                }
+            }
+            const userResult = await this.model.saveProfile(req.session.admin_id , first_name , last_name,
+                 email, pass1 , pass2 , pass3, avatar);
             if(userResult == 1){
                 req.session.admin_info = await this.model.getprofile(req.session.admin_id);
+                
                 return res.redirect(`${this.#URL}profile/?msg=success`);
             }else{
                 return res.redirect(`${this.#URL}profile/?msg=${userResult}`);

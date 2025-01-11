@@ -104,7 +104,17 @@
                                         </label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input dir="ltr" type="file" id="avatar" class="form-control" name="avatar" />
+                                        {% if(user.avatar === "") %}
+                                            <input dir="ltr" type="file" id="avatar" class="form-control" name="avatar" />
+                                        {% else %}
+                                            {% set avatar_url = user.avatar %}
+                                            <a href="{{avatar_url}}" target="_blank">
+                                                <img src="{{avatar_url}}" alt="avatar" class="img-fluid img-thumbnail round" style="max-width: 150px;">
+                                            </a>
+                                            &nbsp;
+                                            <button type="reset" class="btn btn-danger" onclick="delete_avatar()">{{t('user.profile_delete_avatar')}}</button>
+                                        {% endif %}
+                                        
                                     </div>
                                 </div>
                             </div>

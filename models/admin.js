@@ -57,11 +57,15 @@ class AdminModel{
        return this.model.findOne({"email" : email}).countDocuments();
     }
 
-    async saveProfile(admin_id, first_name , last_name , email, pass1 , pass2 , pass3){
+    async saveProfile(admin_id, first_name , last_name , email, pass1 , pass2 , pass3 , avatar){
         const currentUser = await this.getprofile(admin_id);
         const data = {
             first_name , last_name
         };
+
+        if( avatar !== ""){ 
+            data['avatar'] = avatar;
+        }
         
         if(currentUser?.email !== email ){
             const emailCount = await this.checkEmail(email);
@@ -78,6 +82,18 @@ class AdminModel{
                 return -2 ;// wrong password
             }
         }
+
+        await this.model.updateOne({"_id" : admin_id} , {
+            "$set" : data
+        });
+        return 1;
+    }
+
+    async deleteAvatar(admin_id){
+        const currentUser = await this.getprofile(admin_id);
+        const data = {
+            avatar : ""
+        };
 
         await this.model.updateOne({"_id" : admin_id} , {
             "$set" : data
