@@ -83,7 +83,18 @@ export default class BaseController{
         }
     }
 
-
+    checkCsrfToken(req){
+        try{
+            const csrf_token = this.input(req.body.csrf_token);
+            if(req.session.csrf_token === csrf_token){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(e){
+            return false;
+        }
+    }
 
 
 }

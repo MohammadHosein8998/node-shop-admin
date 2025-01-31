@@ -133,6 +133,9 @@ class userController extends BaseController{
 
     async saveProfile(req ,res){
         try{
+            if(!this.checkCsrfToken(req)){
+                return res.redirect(`${this.#URL}profile/?msg=csrf_token_invalid`);   
+            }
             const first_name = super.safeString(this.input(req.body.first_name));
             const last_name = super.safeString(this.input(req.body.last_name));
             const email = super.safeString(this.input(req.body.email));

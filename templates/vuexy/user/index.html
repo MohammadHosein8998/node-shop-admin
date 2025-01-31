@@ -52,10 +52,15 @@
                     {{ t('user.profile_validation_current_password_is_not_correct')}}
                     {% endAlertDanger %}
 
+                    {% AlertDanger "csrf_token_invalid" %}
+                    {{ t('user.csrf_token_invalid')}}
+                    {% endAlertDanger %}
+
                     {% AlertSuccess "success" %}
                         {{ t('user.success_changing_profile')}}
                     {% endAlertSuccess %}
                     <form class="form form-horizontal" id="form_profile1" method="post" enctype="multipart/form-data">
+                        {{ csrf_token() }}
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-1 row">

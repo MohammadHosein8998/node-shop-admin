@@ -35,5 +35,6 @@ export default {
     'profile_validation_pass3_is_empty' : "لطفا تکرار کلمه عبور جدید را وارد نمایید.",
     'profile_validation_pass3_is_not_match' : "کلمات عبور وارد شده یکسان نمی باشد.",
     'profile_validation_current_password_is_not_correct' : "کلمه عبور جاری صحیح نمی باشد.",
-    'profile_delete_avatar' : "حذف تصویر"
+    'profile_delete_avatar' : "حذف تصویر",
+    "csrf_token_invalid" : "csrf token اشتباه است"
 };

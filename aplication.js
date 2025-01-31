@@ -1,4 +1,4 @@
-import { log,getEnv, sleep, random } from "./core/utils.js";
+import { log,getEnv, csrf_token, random } from "./core/utils.js";
 import express from "express";
 import nunjucks from 'nunjucks';
 import Translate from "./core/Translate.js";
@@ -52,6 +52,7 @@ class Aplication{
             this.#templateEnginge.addGlobal("APP_URL", getEnv('APP_URL'));
             this.#templateEnginge.addGlobal("TEMPLATE_NAME",  getEnv('TEMPLATE') + "/");
             this.#templateEnginge.addGlobal("asset_url",  (path = '')=>{ return getEnv('ASSET-DIRECTORY') + "/" + path});
+            this.#templateEnginge.addGlobal("csrf_token",  ()=>{ return csrf_token(this.#app.get('req')) });
             this.#templateEnginge.addExtension('alertDangerExtension', new templateHelper.alertDangerExtension());
             this.#templateEnginge.addExtension('alertSuccessExtension', new templateHelper.alertSuccessExtension());
 

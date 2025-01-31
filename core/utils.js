@@ -1,8 +1,9 @@
 import dotenv from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
 import mongoose from "mongoose";
-
-
+import nunjucks from 'nunjucks';
+import Crypto from './Crypto.js';
+import DateTime from './DateTime.js';
 
 dotenvExpand.expand(dotenv.config());
 
@@ -91,3 +92,12 @@ export function getpath(){
     return process.cwd() + "/";
 }
 
+export function csrf_token(req){
+    try{
+        const token = Crypto.hash(DateTime.getTimeStamp() + random(9999999999,100000000000000));
+        req.session.csrf_token = token;
+        return nunjucks.runtime.markSafe(`<input type='hidden' name='csrf_token' value='${token}'/>`);
+    }catch(e){
+        return '';
+    }
+}
