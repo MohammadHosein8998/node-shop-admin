@@ -21,11 +21,14 @@ class AdminModel{
 
     async login(email , password){
         try{
-            const result = await this.model.findOne({ "email" : email});
+            const row = await this.model.findOne({ "email" : email});
+
+            const result = row.toJSON();
             if(result?._id){
                 const admin_id = result._id+''
                 if(this.#hashPassword(password , admin_id) === result.password){
                     if (result.status == 2) {
+                        delete result.password;
                         return result;//login success
                     }
                     switch(result.status){
