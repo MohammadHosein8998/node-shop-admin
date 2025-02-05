@@ -23,9 +23,8 @@ class AdminModel{
         try{
             const row = await this.model.findOne({ "email" : email});
             const result = (row === null) ? {} : row.toJSON();
-            
             if(result?._id){
-                const admin_id = result._id+''
+                const admin_id = result._id+'';
                 if(this.#hashPassword(password , admin_id) === result.password){
                     if (result.status == 2) {
                         delete result.password;
@@ -36,9 +35,11 @@ class AdminModel{
                             return -2; //account is disabled
                         case 1:
                             return -3; //account is blocked
-                            
                     }
-            }
+                
+            
+                }
+                return -1 ;// wrong username or password
             }else{
                 return -1 ;// wrong username or password
             }
