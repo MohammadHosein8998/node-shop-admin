@@ -13,5 +13,10 @@ export default {
     "page_404_description" : 'متاسفانه درخواست شما وجود ندارد',
     "page_500_description" : 'مشکلی در سرور رخ داده است',
     "Back to home" : "بازگشت به خانه",
-    'footer-text' : 'تمامی حقوق این وبسایت مطعلق به سایت {{ name }} می باشد .'
+    'footer-text' : 'تمامی حقوق این وبسایت مطعلق به سایت {{ name }} می باشد .',
+    "home" : "خانه",
+    "menu_category" : "مدیریت دسته بندی گروه محصولات",
+    "menu_category_list" : "لیست دسته بندی ها",
+    "menu_category_add" : "ثبت دسته بندی جدید",
+    
 };

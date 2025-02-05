@@ -42,7 +42,7 @@
 }
 
 .vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
-  width : 260px;
+  width : 300px;
 }
 
 .vertical-layout.vertical-menu-modern.menu-expanded .main-menu .navigation .navigation-header .feather-more-horizontal {
@@ -81,7 +81,7 @@
 }
 
 .vertical-layout.vertical-menu-modern.menu-expanded .footer {
-  margin-right : 260px;
+  margin-right : 300px;
 }
 
 .vertical-layout.vertical-menu-modern.menu-collapsed .navbar .navbar-header {
@@ -94,7 +94,7 @@
 }
 
 .vertical-layout.vertical-menu-modern.menu-collapsed .navbar .navbar-header.expanded {
-  width : 260px;
+  width : 300px;
   z-index : 1000;
 }
 
@@ -140,7 +140,7 @@
 }
 
 .vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded {
-  width : 260px;
+  width : 300px;
 }
 
 .vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .navigation > li.navigation-header span {
@@ -219,7 +219,7 @@
 
 @media (min-width: 992px) {
   .vertical-layout.vertical-menu-modern .main-menu {
-    width : 260px;
+    width : 300px;
   }
 }
 
@@ -312,7 +312,7 @@
 
 .vertical-overlay-menu .navbar .navbar-header {
   float : right;
-  width : 260px;
+  width : 300px;
 }
 
 .vertical-overlay-menu .main-menu, .vertical-overlay-menu.menu-hide .main-menu {
@@ -323,8 +323,8 @@
           transition : width 0.25s, opacity 0.25s, -webkit-transform 0.25s;
           transition : width 0.25s, opacity 0.25s, transform 0.25s;
           transition : width 0.25s, opacity 0.25s, transform 0.25s, -webkit-transform 0.25s;
-  width : 260px;
-  right : -260px;
+  width : 300px;
+  right : -300px;
 }
 
 .vertical-overlay-menu .main-menu .navigation > li > a > svg, .vertical-overlay-menu .main-menu .navigation > li > a > i {
@@ -373,8 +373,8 @@
 
 .vertical-overlay-menu.menu-open .main-menu {
   opacity : 1;
-  -webkit-transform : translate3d(-260px, 0, 0);
-          transform : translate3d(-260px, 0, 0);
+  -webkit-transform : translate3d(-300px, 0, 0);
+          transform : translate3d(-300px, 0, 0);
   -webkit-transition : width 0.25s, opacity 0.25s, -webkit-transform 0.25s;
           transition : width 0.25s, opacity 0.25s, -webkit-transform 0.25s;
           transition : width 0.25s, opacity 0.25s, transform 0.25s;

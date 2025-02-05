@@ -53,3 +53,8 @@ a.dropdown-item{
     font-family: 'samim';
     /* font-size: 17px; */
 }
+
+.navigation{
+    font-size: inherit !important;
+    font-family: 'samim';
+}
