@@ -22,8 +22,8 @@ class AdminModel{
     async login(email , password){
         try{
             const row = await this.model.findOne({ "email" : email});
-
-            const result = row.toJSON();
+            const result = (row === null) ? {} : row.toJSON();
+            
             if(result?._id){
                 const admin_id = result._id+''
                 if(this.#hashPassword(password , admin_id) === result.password){
@@ -38,10 +38,9 @@ class AdminModel{
                             return -3; //account is blocked
                             
                     }
-    
-                }else{
-                    return -1 ;// wrong username or password
-                }
+            }
+            }else{
+                return -1 ;// wrong username or password
             }
         }catch(e){
             throw Error(`AdminModel Error : ${e.toString()}`);
