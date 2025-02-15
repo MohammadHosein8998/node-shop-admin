@@ -13,6 +13,8 @@ export function alertDanger(key , message){
 }
 
 
+
+
 //nunjucks document -> costum tag
 export function alertDangerExtension(){
     this.tags = ['AlertDanger'];
@@ -76,6 +78,40 @@ export function alertSuccessExtension(){
     };
 }
 
+
+////////////////////////////////////////////////////////////////
+//nunjucks document -> costum tag
+export function MenuItemExtension(){
+    this.tags = ['MenuItem'];
+    this.parse = function(parser, nodes, lexer) {
+        // get the tag token
+        var tok = parser.nextToken();
+        var args = parser.parseSignature(null, true);
+        parser.advanceAfterBlockEnd(tok.value);
+        var body = parser.parseUntilBlocks('endMenuItem');   
+        parser.advanceAfterBlockEnd();
+        // See above for notes about CallExtension
+        return new nodes.CallExtension(this, 'run', args, [body]);
+    };
+
+    
+    this.run = function(context, key, body) {
+       try{
+        var currentRoute =  context.ctx.settings.req.baseUrl + context.ctx.settings.req.path;
+        
+        if(!currentRoute.endsWith("/")){
+            currentRoute += "/";
+        }
+        if(currentRoute === key)
+            {
+                const html = 'active';
+                return nunjucks.runtime.markSafe(html);
+            } 
+       }catch(e){
+        return e.toString();
+       }
+    };
+}
 
 
 

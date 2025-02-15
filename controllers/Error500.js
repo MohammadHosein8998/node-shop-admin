@@ -1,8 +1,7 @@
-import { query } from "express";
 import BaseController from "../core/BaseController.js";
 
 
-class Error500Controller extends BaseController{
+export default class Error500Controller extends BaseController{
 
     constructor(){
         super();
@@ -16,5 +15,3 @@ class Error500Controller extends BaseController{
         }
     }
 }
-
-export default Error500Controller;

@@ -10,7 +10,7 @@ import {FileExist, unlink} from '../core/fs.js';
 import AdminModel from '../models/admin.js';
 
 
-class userController extends BaseController{
+export default  class userController extends BaseController{
     #URL = getEnv('APP_URL') + "user/";
 
     constructor(){
@@ -181,5 +181,3 @@ class userController extends BaseController{
 
 
 }
-
-export default userController;

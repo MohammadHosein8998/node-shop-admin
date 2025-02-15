@@ -1,8 +1,7 @@
-import { query } from "express";
 import BaseController from "../core/BaseController.js";
 import { log } from "../core/utils.js";
 
-class Error404Controller extends BaseController{
+export default class Error404Controller extends BaseController{
 
     constructor(){
         super();
@@ -17,5 +16,3 @@ class Error404Controller extends BaseController{
         }
     }
 }
-
-export default Error404Controller;

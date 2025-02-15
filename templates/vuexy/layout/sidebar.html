@@ -36,12 +36,12 @@
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class="active nav-item">
-                <a class="d-flex align-items-center" href="index.html">
+            <li class="nav-item {% MenuItem '/' %}{% endMenuItem %}">
+                <a class="d-flex align-items-center" href="/">
                     <i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Home">{{ t('main_page') }}</span>
                 </a>
             </li>
-            <li class=" nav-item">
+            <li class="nav-item ">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="layout">
                     </i>
@@ -50,16 +50,16 @@
                     </span>
                 </a>
                     <ul class="menu-content">
-                        <li>
-                            <a class="d-flex align-items-center" href="#">
+                        <li class="{% MenuItem '/category/' %}{% endMenuItem %}">
+                            <a class="d-flex align-items-center" href="/category/">
                                 <i data-feather="circle"></i>
                                 <span class="menu-item text-truncate" data-i18n="Collapsed Menu">
                                     {{ t("menu_category_list") }}
                                 </span>
                             </a>
                         </li>
-                        <li>
-                            <a class="d-flex align-items-center" href="#">
+                        <li class="{% MenuItem '/category/add' %}{% endMenuItem %}">
+                            <a class="d-flex align-items-center" href="/category/add">
                                 <i data-feather="circle"></i>
                                 <span class="menu-item text-truncate" data-i18n="Collapsed Menu">
                                     {{ t("menu_category_add") }}

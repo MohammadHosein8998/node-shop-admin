@@ -101,3 +101,19 @@ export function csrf_token(req){
         return '';
     }
 }
+
+
+export function menu_item(req,route){
+    try{
+        const currentRoute = req?.baseUrl + req.path;
+        log("currentRoute :" + currentRoute);
+        log("route :" + route);
+        if(currentRoute === route){
+            return "active";
+        }
+        return "";
+
+    }catch(e){
+        return '';
+    }
+}
