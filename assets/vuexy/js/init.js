@@ -11,9 +11,16 @@ $(document).ready(function(){
     
     i18next.changeLanguage('lang');
     
+    if(jQuery.validator){
+        jQuery.validator.addMethod("slug", function(value, element) {
+            // allow any non-whitespace characters as the host part
+            return this.optional( element ) || /^[a-z0-9-]+$/.test( value );
+          }, t('validation_slug_invalid'));
+    }
+
+});
 
 
-  });
 
 
 

@@ -16,8 +16,6 @@ export default {
     "Login_account_disabled" : "حساب کاربری شما غیرفعال میباشد" ,
     "Login_account_blocked" : "حساب کاربری شما مسدود میباشد",
     "success-logout" : "خروج با موفقیت انجام شد",
-    "profile_save" : "ذخیره",
-    "profile_back" : "بازگشت",
     "profile_first_name" : "نام",
     "last_name" : "نام خانوادگی",
     "pass1" : "کلمه عبور جاری",

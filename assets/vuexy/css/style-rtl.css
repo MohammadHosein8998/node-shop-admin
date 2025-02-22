@@ -58,3 +58,13 @@ a.dropdown-item{
     font-size: inherit !important;
     font-family: 'samim';
 }
+
+.alert-success{
+    background: rgb(188, 255, 188) !important;
+    color: #0b7c3e !important;
+}
+
+.alert-warning{
+    background: rgb(255, 237, 188) !important;
+    color: #8c4e14 !important;
+}

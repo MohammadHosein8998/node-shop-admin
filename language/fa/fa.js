@@ -1,8 +1,8 @@
 import user from './user.js';
 import home from './home.js';
+import category from './category.js';
 export default {
-    'user' : user,
-    'home' : home,
+
     "menu_logout" : "خروج",
     "menu_setting" : "تنظیمات",
     "menu_profile" : "پروفایل",
@@ -18,5 +18,14 @@ export default {
     "menu_category" : "مدیریت دسته بندی گروه محصولات",
     "menu_category_list" : "لیست دسته بندی ها",
     "menu_category_add" : "ثبت دسته بندی جدید",
-    
+    "save" : "ذخیره",
+    "back" : "بازگشت",
+    'title_seo' : "عنوان صفحه SEO",
+    'description_seo' : "توضیحات صفحه SEO",
+    "status" : "وضعیت نمایش",
+    "status_enable" : "قابل دسترس",
+    "status_disable" : "غیر قابل دسترس",
+    'user' : user,
+    'home' : home,
+    'category' : category
 };

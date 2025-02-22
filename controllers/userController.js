@@ -94,7 +94,6 @@ export default  class userController extends BaseController{
                 'title' : Translate.t('user.profile'),
                 "user" : req.session.admin_info
             };
-            log(req.session);
             return res.render("user/index", data);
         }catch(e){
             return super.toError(e , req ,res);

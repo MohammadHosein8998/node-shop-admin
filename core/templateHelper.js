@@ -102,6 +102,8 @@ export function MenuItemExtension(){
         if(!currentRoute.endsWith("/")){
             currentRoute += "/";
         }
+        log(currentRoute)
+        log(key)
         if(currentRoute === key)
             {
                 const html = 'active';

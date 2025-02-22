@@ -59,109 +59,94 @@
                     {% AlertSuccess "success" %}
                         {{ t('user.success_changing_profile')}}
                     {% endAlertSuccess %}
-                    <form class="form form-horizontal" id="form_profile" method="post" enctype="multipart/form-data">
+                    <form class="form form-horizontal" id="form_add" method="post" enctype="multipart/form-data">
                         {{ csrf_token() }}
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="first_name">
-                                            {{t('user.profile_first_name')}}
+                                        <label class="col-form-label" for="parent_id">
+                                            {{t('category.parent_id')}}
                                             <span class="text-danger">*</span>
                                         </label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="text" id="first_name" class="form-control" name="first_name" value="{{ user.first_name}}"/>
+                                        <select name="parent_id" id="parent_id" class="form-control">
+                                            <option value="">----</option>
+                                            <option value="0">{{t('category.main')}}</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="last_name">
-                                            {{t('user.last_name')}} :
+                                        <label class="col-form-label" for="title">
+                                            {{t('category.title')}} :
                                             <span class="text-danger">*</span>
                                         </label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="text" id="last_name" class="form-control" name="last_name"  value="{{ user.last_name}}"/>
+                                        <input type="text" id="title" class="form-control" name="title"  value="{{ form.title}}"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="email">
-                                            {{t('user.email')}} :
+                                        <label class="col-form-label" for="slug">
+                                            slug :
                                             <span class="text-danger">*</span>
                                         </label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input dir="ltr" type="text" id="email" class="form-control" name="email" value="{{ user.email}}"/>
+                                        <input type="text" dir="ltr" id="slug" class="form-control" name="slug"  value="{{ form.slug}}"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="avatar">
-                                            {{t('user.avatar')}} :
+                                        <label class="col-form-label" for="title_seo">
+                                            {{t('title_seo')}} :
+                                            <span class="text-danger">*</span>
                                         </label>
                                     </div>
                                     <div class="col-sm-9">
-                                        {% if(user.avatar === "") %}
-                                            <input dir="ltr" type="file" id="avatar" class="form-control" name="avatar" />
-                                        {% else %}
-                                            {% set avatar_url = user.avatar %}
-                                            <a href="{{avatar_url}}" target="_blank">
-                                                <img src="{{avatar_url}}" alt="avatar" class="img-fluid img-thumbnail round" style="max-width: 150px;">
-                                            </a>
-                                            &nbsp;
-                                            <button type="reset" class="btn btn-danger" onclick="delete_avatar()">{{t('user.profile_delete_avatar')}}</button>
-                                        {% endif %}
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="alert alert-warning text-center">
-                                    {{t('user.profile_password_hint_changed')}}
-                                </div>
-                                <div class="mb-1 row">
-                                    <div class="col-sm-3">
-                                        <label class="col-form-label" for="pass1">
-                                            {{t('user.pass1')}} :
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input dir="ltr" type="password" id="pass1" class="form-control" name="pass1" />
+                                        <input type="text" id="title_seo" class="form-control" name="title_seo"  value="{{ form.title_seo}}"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="pass2">
-                                            {{t('user.pass2')}} :
+                                        <label class="col-form-label" for="status">
+                                            {{t('status')}}
+                                            <span class="text-danger">*</span>
                                         </label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input dir="ltr" type="password" id="pass2" class="form-control" name="pass2" />
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="">{{t('status_enable')}}</option>
+                                            <option value="">{{t('status_disable')}}</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="pass3">
-                                            {{t('user.pass3')}} :
+                                        <label class="col-form-label" for="description_seo">
+                                            {{t('description_seo')}} :
+                                            <span class="text-danger">*</span>
                                         </label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input dir="ltr" type="password" id="pass3" class="form-control" name="pass3" />
+                                        <textarea style="height: 120px;" type="text" id="description_seo" class="form-control" name="description_seo" >{{ form.description_seo}}</textarea>
                                     </div>
                                 </div>
                             </div>
+                            
                             
                             <div class="col-sm-9 offset-sm-3">
                                 <button type="submit" class="btn btn-primary">{{t('save')}}</button>
@@ -178,7 +163,7 @@
 
 {% block js %}
     <script src="{{ asset_url('js/jquery.validate.min.js')}}"></script>
-    <script src="{{ asset_lang_url('user/profile.js')}}"></script>  
-    <script src="{{ asset_url('controllers/user/profile.js')}}"></script>    
+    <script src="{{ asset_lang_url('category/add.js')}}"></script>  
+    <script src="{{ asset_url('controllers/category/add.js')}}"></script>    
     <script src="{{ asset_lang_url('home.js')}}"></script>
 {% endblock %} 
